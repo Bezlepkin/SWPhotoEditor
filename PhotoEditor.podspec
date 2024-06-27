@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.source           = { :git => 'https://github.com/Bezlepkin/PhotoEditor.git', :tag => s.version.to_s }
     s.platform     = :ios, '9.0'
     s.source_files = 'Source/**/*'
-    s.resources = 'PhotoEditor/**/*.{png,xib,ttf}'
+    s.resources = 'Source/**/*.{png,xib,ttf}'
     # s.resource_bundles = { 'PhotoEditor' => ['Source/*.{png}'] }
     s.swift_version = '5.0'
   end
