@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '9.0'
     s.source_files = 'Source/**/*'
     # s.resources = 'Source/**/*.{png,xib,ttf}'
-    s.resource_bundles = { 'PhotoEditor' => ['Assets/*.{png,ttf}'] }
+    s.resource_bundles = { 'PhotoEditor' => ['Resources/*.{png,ttf}'] }
     s.swift_version = '5.0'
   end

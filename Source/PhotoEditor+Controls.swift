@@ -24,12 +24,12 @@ extension PhotoEditorViewController {
 
      //MARK: Top Toolbar
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+    @objc func closeButtonWasTapped() {
         photoEditorDelegate?.canceledEditing()
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func cropButtonTapped(_ sender: UIButton) {
+    @objc func cropButtonTapped() {
         let controller = CropViewController()
         controller.delegate = self
         controller.image = image
@@ -37,21 +37,21 @@ extension PhotoEditorViewController {
         present(navController, animated: true, completion: nil)
     }
 
-    @IBAction func stickersButtonTapped(_ sender: Any) {
+    @objc func stickersButtonTapped() {
         addStickersViewController()
     }
-
-    @IBAction func drawButtonTapped(_ sender: Any) {
+    
+    @objc func drawButtonTapped() {
         isDrawing = true
         canvasImageView.isUserInteractionEnabled = false
-        doneButton.isHidden = false
-        colorPickerView.isHidden = false
+         doneButton.isHidden = false
+         colorPickerView.isHidden = false
         hideToolbar(hide: true)
     }
-
-    @IBAction func textButtonTapped(_ sender: Any) {
+    
+    @objc func textButtonTapped() {
         isTyping = true
-        let textView = UITextView(frame: CGRect(x: 0, y: canvasImageView.center.y,
+        let textView = UITextView(frame: CGRect(x: 0, y:  canvasImageView.center.y,
                                                 width: UIScreen.main.bounds.width, height: 30))
         
         textView.textAlignment = .center
@@ -65,43 +65,42 @@ extension PhotoEditorViewController {
         textView.autocorrectionType = .no
         textView.isScrollEnabled = false
         textView.delegate = self
-        self.canvasImageView.addSubview(textView)
+         canvasImageView.addSubview(textView)
         addGestures(view: textView)
         textView.becomeFirstResponder()
-    }    
+    }
     
-    @IBAction func doneButtonTapped(_ sender: Any) {
+    @objc func doneButtonTapped() {
         view.endEditing(true)
-        doneButton.isHidden = true
-        colorPickerView.isHidden = true
-        canvasImageView.isUserInteractionEnabled = true
+         doneButton.isHidden = true
+         colorPickerView.isHidden = true
+         canvasImageView.isUserInteractionEnabled = true
         hideToolbar(hide: false)
         isDrawing = false
     }
     
     //MARK: Bottom Toolbar
     
-    @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        UIImageWriteToSavedPhotosAlbum(canvasView.toImage(),self, #selector(PhotoEditorViewController.image(_:withPotentialError:contextInfo:)), nil)
+    @objc func saveButtonTapped() {
+        UIImageWriteToSavedPhotosAlbum( canvasView.toImage(),self, #selector(PhotoEditorViewController.image(_:withPotentialError:contextInfo:)), nil)
     }
     
-    @IBAction func shareButtonTapped(_ sender: UIButton) {
-        let activity = UIActivityViewController(activityItems: [canvasView.toImage()], applicationActivities: nil)
+    @objc func shareButtonTapped() {
+        let activity = UIActivityViewController(activityItems: [ canvasView.toImage()], applicationActivities: nil)
         present(activity, animated: true, completion: nil)
-        
     }
     
-    @IBAction func clearButtonTapped(_ sender: AnyObject) {
+    @objc func clearButtonTapped() {
         //clear drawing
-        canvasImageView.image = nil
+         canvasImageView.image = nil
         //clear stickers and textviews
-        for subview in canvasImageView.subviews {
+        for subview in  canvasImageView.subviews {
             subview.removeFromSuperview()
         }
     }
     
-    @IBAction func continueButtonPressed(_ sender: Any) {
-        let img = self.canvasView.toImage()
+    @objc func continueButtonPressed() {
+        let img =  canvasView.toImage()
         photoEditorDelegate?.doneEditing(image: img)
         self.dismiss(animated: true, completion: nil)
     }
@@ -119,19 +118,19 @@ extension PhotoEditorViewController {
             switch control {
                 
             case .clear:
-                clearButton.isHidden = true
+                 clearButton.isHidden = true
             case .crop:
-                cropButton.isHidden = true
+                 cropButton.isHidden = true
             case .draw:
-                drawButton.isHidden = true
+                 drawButton.isHidden = true
             case .save:
-                saveButton.isHidden = true
+                 saveButton.isHidden = true
             case .share:
-                shareButton.isHidden = true
+                 shareButton.isHidden = true
             case .sticker:
-                stickerButton.isHidden = true
+                 stickerButton.isHidden = true
             case .text:
-                stickerButton.isHidden = true
+                 stickerButton.isHidden = true
             }
         }
     }

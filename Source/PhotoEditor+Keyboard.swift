@@ -33,9 +33,9 @@ extension PhotoEditorViewController {
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                self.colorPickerViewBottomConstraint?.constant = 0.0
+                colorPickerViewBottomConstraint?.constant = 0.0
             } else {
-                self.colorPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+                colorPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),

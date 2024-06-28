@@ -14,7 +14,7 @@ extension PhotoEditorViewController {
         if isDrawing {
             swiped = false
             if let touch = touches.first {
-                lastPoint = touch.location(in: self.canvasImageView)
+                lastPoint = touch.location(in: canvasImageView)
             }
         }
             //Hide stickersVC if clicked outside it

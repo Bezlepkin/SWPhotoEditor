@@ -14,7 +14,7 @@ extension PhotoEditorViewController {
     func addStickersViewController() {
         stickersVCIsVisible = true
         hideToolbar(hide: true)
-        self.canvasImageView.isUserInteractionEnabled = false
+        canvasImageView.isUserInteractionEnabled = false
         stickersViewController.stickersViewControllerDelegate = self
         
         for image in self.stickers {
@@ -30,7 +30,7 @@ extension PhotoEditorViewController {
     
     func removeStickersView() {
         stickersVCIsVisible = false
-        self.canvasImageView.isUserInteractionEnabled = true
+        canvasImageView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.3,
                        delay: 0,
                        options: UIView.AnimationOptions.curveEaseIn,
@@ -53,7 +53,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
         self.removeStickersView()
         
         view.center = canvasImageView.center
-        self.canvasImageView.addSubview(view)
+        canvasImageView.addSubview(view)
         //Gestures
         addGestures(view: view)
     }
@@ -66,7 +66,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
         imageView.frame.size = CGSize(width: 150, height: 150)
         imageView.center = canvasImageView.center
         
-        self.canvasImageView.addSubview(imageView)
+        canvasImageView.addSubview(imageView)
         //Gestures
         addGestures(view: imageView)
     }
