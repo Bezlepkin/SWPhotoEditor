@@ -13,7 +13,7 @@ import UIKit
  - didSelectImage
  - stickersViewDidDisappear
  */
-
+/*
 public protocol PhotoEditorDelegate {
     /**
      - Parameter image: edited Image
@@ -24,7 +24,7 @@ public protocol PhotoEditorDelegate {
      */
     func canceledEditing()
 }
-
+*/
 
 /**
  - didSelectView
