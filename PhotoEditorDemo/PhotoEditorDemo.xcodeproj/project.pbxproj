@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BB225B0FDD1601B4081A49E /* Pods_PhotoEditorDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5929EBDD93B2BE28324C51B1 /* Pods_PhotoEditorDemo.framework */; };
 		F1AEB8742C3038CC00109CAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AEB8732C3038CC00109CAF /* AppDelegate.swift */; };
 		F1AEB8762C3038CC00109CAF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AEB8752C3038CC00109CAF /* SceneDelegate.swift */; };
 		F1AEB8782C3038CC00109CAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AEB8772C3038CC00109CAF /* ViewController.swift */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5929EBDD93B2BE28324C51B1 /* Pods_PhotoEditorDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoEditorDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59D842CFA3604DDDBF0083A8 /* Pods-PhotoEditorDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoEditorDemo.debug.xcconfig"; path = "Target Support Files/Pods-PhotoEditorDemo/Pods-PhotoEditorDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F1AEB8702C3038CC00109CAF /* PhotoEditorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoEditorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1AEB8732C3038CC00109CAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1AEB8752C3038CC00109CAF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		F1AEB87C2C3038CE00109CAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1AEB87F2C3038CE00109CAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1AEB8812C3038CE00109CAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1DA788AEF877ADC57B5DC84 /* Pods-PhotoEditorDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoEditorDemo.release.xcconfig"; path = "Target Support Files/Pods-PhotoEditorDemo/Pods-PhotoEditorDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB225B0FDD1601B4081A49E /* Pods_PhotoEditorDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13AECF9D93D10A23CBC77172 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59D842CFA3604DDDBF0083A8 /* Pods-PhotoEditorDemo.debug.xcconfig */,
+				F1DA788AEF877ADC57B5DC84 /* Pods-PhotoEditorDemo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5EBB9CD7EB8D4A66783DE354 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5929EBDD93B2BE28324C51B1 /* Pods_PhotoEditorDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F1AEB8672C3038CC00109CAF = {
 			isa = PBXGroup;
 			children = (
 				F1AEB8722C3038CC00109CAF /* PhotoEditorDemo */,
 				F1AEB8712C3038CC00109CAF /* Products */,
+				13AECF9D93D10A23CBC77172 /* Pods */,
+				5EBB9CD7EB8D4A66783DE354 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1AEB8842C3038CE00109CAF /* Build configuration list for PBXNativeTarget "PhotoEditorDemo" */;
 			buildPhases = (
+				3EAFD1E728607B91CBBAA601 /* [CP] Check Pods Manifest.lock */,
 				F1AEB86C2C3038CC00109CAF /* Sources */,
 				F1AEB86D2C3038CC00109CAF /* Frameworks */,
 				F1AEB86E2C3038CC00109CAF /* Resources */,
+				70AEA5E79A76DF9BF904544D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +159,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3EAFD1E728607B91CBBAA601 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PhotoEditorDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70AEA5E79A76DF9BF904544D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoEditorDemo/Pods-PhotoEditorDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoEditorDemo/Pods-PhotoEditorDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoEditorDemo/Pods-PhotoEditorDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F1AEB86C2C3038CC00109CAF /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		F1AEB8852C3038CE00109CAF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59D842CFA3604DDDBF0083A8 /* Pods-PhotoEditorDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +380,7 @@
 		};
 		F1AEB8862C3038CE00109CAF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1DA788AEF877ADC57B5DC84 /* Pods-PhotoEditorDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

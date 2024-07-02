@@ -1,0 +1,6 @@
+framework module PhotoEditor {
+  umbrella header "PhotoEditor-umbrella.h"
+
+  export *
+  module * { export * }
+}
