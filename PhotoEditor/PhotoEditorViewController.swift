@@ -172,7 +172,7 @@ public final class PhotoEditorViewController: UIViewController {
     public var image: UIImage?
     public var colors  : [UIColor] = [] // array of Colors that will show while drawing or typing
     public var photoEditorDelegate: PhotoEditorDelegate?
-    var colorsCollectionViewDelegate: ColorsCollectionViewDelegate!
+    lazy var colorsCollectionViewDelegate: ColorsCollectionViewDelegate = ColorsCollectionViewDelegate(displayedView: view)
     public var hiddenControls : [control] = []  // list of controls to be hidden
     
     var drawColor: UIColor = UIColor.black
@@ -232,7 +232,6 @@ public final class PhotoEditorViewController: UIViewController {
         layout.minimumLineSpacing = 0
         
         colorsCollectionView.collectionViewLayout = layout
-        colorsCollectionViewDelegate = ColorsCollectionViewDelegate()
         colorsCollectionViewDelegate.colorDelegate = self
         
         if !colors.isEmpty {
@@ -255,6 +254,13 @@ public final class PhotoEditorViewController: UIViewController {
         topGradient.isHidden = hide
         bottomToolbar.isHidden = hide
         bottomGradient.isHidden = hide
+    }
+    
+    func calculateColorCellSize() -> CGSize {
+        let collectionWidth: CGFloat = view.frame.width - (16 * 2)
+        let spacings = CGFloat(colors.count - 1) * ColorsCollectionViewDelegate.HORIZONTAL_SPACING
+        let cellBorder = (collectionWidth - spacings) / CGFloat(colors.count)
+        return CGSize(width: cellBorder, height: cellBorder)
     }
     
     // MARK: Setup actions
@@ -450,11 +456,12 @@ public final class PhotoEditorViewController: UIViewController {
     
     private func layoutColorsCollectionView() {
         colorPickerView.addSubview(colorsCollectionView)
+        let collectionViewHeight = calculateColorCellSize().height
         NSLayoutConstraint.activate([
             colorsCollectionView.topAnchor.constraint(equalTo: colorPickerView.topAnchor),
-            colorsCollectionView.leadingAnchor.constraint(equalTo: colorPickerView.leadingAnchor),
-            colorsCollectionView.trailingAnchor.constraint(equalTo: colorPickerView.trailingAnchor),
-            colorsCollectionView.heightAnchor.constraint(equalToConstant: 40)
+            colorsCollectionView.leadingAnchor.constraint(equalTo: colorPickerView.leadingAnchor, constant: 16),
+            colorsCollectionView.trailingAnchor.constraint(equalTo: colorPickerView.trailingAnchor, constant: -16),
+            colorsCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight)
     ])
     }
 }

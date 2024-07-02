@@ -10,7 +10,12 @@ import UIKit
 
 class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    static var HORIZONTAL_SPACING: CGFloat = 5
+    
+    
     var colorDelegate : ColorDelegate?
+    let displayedView: UIView
+    
     
     /**
      Array of Colors that will show while drawing or typing
@@ -32,7 +37,8 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         UIColor.magenta
     ]
     
-    override init() {
+    init(displayedView: UIView) {
+        self.displayedView = displayedView
         super.init()
     }
     
@@ -57,33 +63,44 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
+        return Self.HORIZONTAL_SPACING
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        let cellWidth: CGFloat = flowLayout.itemSize.width
-        let cellSpacing: CGFloat = flowLayout.minimumInteritemSpacing
-        var cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
-        var collectionWidth = collectionView.frame.size.width
-        var totalWidth: CGFloat
-        if #available(iOS 11.0, *) {
-            collectionWidth -= collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right
-        }
-        repeat {
-            totalWidth = cellWidth * cellCount + cellSpacing * (cellCount - 1)
-            cellCount -= 1
-        } while totalWidth >= collectionWidth
-
-        if (totalWidth > 0) {
-            let edgeInset = (collectionWidth - totalWidth) / 2
-            return UIEdgeInsets.init(top: flowLayout.sectionInset.top, left: edgeInset, bottom: flowLayout.sectionInset.bottom, right: edgeInset)
-        } else {
-            return flowLayout.sectionInset
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        calculateColorCellSize()
     }
+    
+    private func calculateColorCellSize() -> CGSize {
+        let collectionWidth: CGFloat = displayedView.frame.width - (16 * 2)
+        let spacings = CGFloat(colors.count - 1) * ColorsCollectionViewDelegate.HORIZONTAL_SPACING
+        let cellBorder = (collectionWidth - spacings) / CGFloat(colors.count)
+        return CGSize(width: cellBorder, height: cellBorder)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        let cellWidth: CGFloat = flowLayout.itemSize.width
+//        let cellSpacing: CGFloat = flowLayout.minimumInteritemSpacing
+//        var cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
+//        var collectionWidth = collectionView.frame.size.width
+//        var totalWidth: CGFloat
+//        if #available(iOS 11.0, *) {
+//            collectionWidth -= collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right
+//        }
+//        repeat {
+//            totalWidth = cellWidth * cellCount + cellSpacing * (cellCount - 1)
+//            cellCount -= 1
+//        } while totalWidth >= collectionWidth
+//
+//        if (totalWidth > 0) {
+//            let edgeInset = (collectionWidth - totalWidth) / 2
+//            return UIEdgeInsets.init(top: flowLayout.sectionInset.top, left: edgeInset, bottom: flowLayout.sectionInset.bottom, right: edgeInset)
+//        } else {
+//            return flowLayout.sectionInset
+//        }
+//    }
 }
