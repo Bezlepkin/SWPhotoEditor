@@ -29,14 +29,21 @@ class ViewController: UIViewController {
     
     private func presentPhotoEditor(with image: UIImage) {
         let photoEditor = PhotoEditorViewController()
-        photoEditor.image = image
-        // Do any additional setup after loading the view.
-        // photoEditor.hiddenControls = []
         
-        //Optional: Colors for drawing and Text, If not set default values will be used
-        photoEditor.colors = [.white, .black, .red, .green, .blue, .yellow, .systemPink, .orange, .brown, .cyan, .magenta]
+        photoEditor.image = image
+        photoEditor.colors = [
+            Color.white.color,
+            Color.black.color,
+            Color.red.color,
+            Color.green.color,
+            Color.blue.color,
+            Color.yellow.color,
+            Color.pink.color,
+            Color.orange.color,
+            Color.brown.color
+        ]
         photoEditor.modalPresentationStyle = .fullScreen
-        //Present the View Controller
+        
         self.present(photoEditor, animated: true, completion: nil)
     }
     
@@ -74,7 +81,6 @@ extension ViewController: PHPickerViewControllerDelegate {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
                 if let image = image as? UIImage {
                     DispatchQueue.main.async { [weak self] in
-                        // Используйте выбранное изображение
                         self?.presentPhotoEditor(with: image)
                     }
                 }
