@@ -13,15 +13,15 @@ extension PhotoEditorViewController {
     
     @objc func keyboardDidShow(notification: NSNotification) {
         if isTyping {
-            doneButton.isHidden = false
-            colorPickerView.isHidden = false
+            contentView.doneButton.isHidden = false
+            contentView.colorPickerView.isHidden = false
             hideToolbar(hide: true)
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         isTyping = false
-        doneButton.isHidden = true
+        contentView.doneButton.isHidden = true
         hideToolbar(hide: false)
     }
     
@@ -33,9 +33,9 @@ extension PhotoEditorViewController {
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                colorPickerViewBottomConstraint?.constant = 0.0
+                contentView.colorPickerViewBottomConstraint?.constant = 0.0
             } else {
-                colorPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+                contentView.colorPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),

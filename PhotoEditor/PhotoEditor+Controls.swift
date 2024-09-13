@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: - Control
-public enum control {
+public enum Control {
     case crop
     case draw
     case save
@@ -40,9 +40,9 @@ extension PhotoEditorViewController {
     
     @objc func drawButtonTapped() {
         isDrawing = true
-        canvasImageView.isUserInteractionEnabled = false
-        doneButton.isHidden = false
-        colorPickerView.isHidden = false
+        contentView.canvasImageView.isUserInteractionEnabled = false
+        contentView.doneButton.isHidden = false
+        contentView.colorPickerView.isHidden = false
         hideToolbar(hide: true)
     }
     
@@ -51,7 +51,7 @@ extension PhotoEditorViewController {
         let textView = UITextView(
             frame: CGRect(
                 x: 0,
-                y:  canvasImageView.center.y,
+                y:  contentView.canvasImageView.center.y,
                 width: UIScreen.main.bounds.width,
                 height: 30
             )
@@ -68,16 +68,16 @@ extension PhotoEditorViewController {
         textView.autocorrectionType = .no
         textView.isScrollEnabled = false
         textView.delegate = self
-         canvasImageView.addSubview(textView)
+        contentView.canvasImageView.addSubview(textView)
         // addGestures(view: textView)
         textView.becomeFirstResponder()
     }
     
     @objc func doneButtonTapped() {
         view.endEditing(true)
-         doneButton.isHidden = true
-         colorPickerView.isHidden = true
-         canvasImageView.isUserInteractionEnabled = true
+        contentView.doneButton.isHidden = true
+        contentView.colorPickerView.isHidden = true
+        contentView.canvasImageView.isUserInteractionEnabled = true
         hideToolbar(hide: false)
         isDrawing = false
     }
@@ -85,25 +85,25 @@ extension PhotoEditorViewController {
     //MARK: Bottom Toolbar
     
     @objc func saveButtonTapped() {
-        UIImageWriteToSavedPhotosAlbum( canvasView.toImage(),self, #selector(PhotoEditorViewController.image(_:withPotentialError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum( contentView.canvasView.toImage(),self, #selector(PhotoEditorViewController.image(_:withPotentialError:contextInfo:)), nil)
     }
     
     @objc func shareButtonTapped() {
-        let activity = UIActivityViewController(activityItems: [ canvasView.toImage()], applicationActivities: nil)
+        let activity = UIActivityViewController(activityItems: [ contentView.canvasView.toImage()], applicationActivities: nil)
         present(activity, animated: true, completion: nil)
     }
     
     @objc func clearButtonTapped() {
         //clear drawing
-         canvasImageView.image = nil
+        contentView.canvasImageView.image = nil
         //clear stickers and textviews
-        for subview in  canvasImageView.subviews {
+        for subview in  contentView.canvasImageView.subviews {
             subview.removeFromSuperview()
         }
     }
     
     @objc func continueButtonPressed() {
-        let img =  canvasView.toImage()
+        let img =  contentView.canvasView.toImage()
         photoEditorDelegate?.doneEditing(image: img)
         self.dismiss(animated: true, completion: nil)
     }
@@ -121,15 +121,15 @@ extension PhotoEditorViewController {
             switch control {
 
             case .clear:
-                 clearButton.isHidden = true
+                contentView.clearButton.isHidden = true
             case .crop:
-                 cropButton.isHidden = true
+                contentView.cropButton.isHidden = true
             case .draw:
-                 drawButton.isHidden = true
+                contentView.drawButton.isHidden = true
             case .save:
-                 saveButton.isHidden = true
+                contentView.saveButton.isHidden = true
             case .share:
-                 shareButton.isHidden = true
+                contentView.shareButton.isHidden = true
             }
         }
     }
