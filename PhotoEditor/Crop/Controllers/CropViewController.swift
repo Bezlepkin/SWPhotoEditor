@@ -20,35 +20,43 @@ open class CropViewController: UIViewController {
             cropView?.image = image
         }
     }
+    
     open var keepAspectRatio = false {
         didSet {
             cropView?.keepAspectRatio = keepAspectRatio
         }
     }
+    
     open var cropAspectRatio: CGFloat = 0.0 {
         didSet {
             cropView?.cropAspectRatio = cropAspectRatio
         }
     }
+    
     open var cropRect = CGRect.zero {
         didSet {
             adjustCropRect()
         }
     }
+    
     open var imageCropRect = CGRect.zero {
         didSet {
             cropView?.imageCropRect = imageCropRect
         }
     }
+    
     open var toolbarHidden = false
+    
     open var rotationEnabled = false {
         didSet {
             cropView?.rotationGestureRecognizer.isEnabled = rotationEnabled
         }
     }
+    
     open var rotationTransform: CGAffineTransform {
         return cropView!.rotation
     }
+    
     open var zoomedCropRect: CGRect {
         return cropView!.zoomedCropRect()
     }
@@ -83,15 +91,29 @@ open class CropViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.toolbar.isTranslucent = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(CropViewController.cancel(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(CropViewController.done(_:)))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(CropViewController.cancel(_:))
+        )
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(CropViewController.done(_:))
+        )
+        
+        navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 1, green: 0.72, blue: 0.01, alpha: 1)
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 1, green: 0.72, blue: 0.01, alpha: 1)
+        
+        /*
         if self.toolbarItems == nil {
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
             let constrainButton = UIBarButtonItem(title: "Constrain", style: .plain, target: self, action: #selector(CropViewController.constrain(_:)))
             toolbarItems = [flexibleSpace, constrainButton, flexibleSpace]
         }
-        
+        */
         navigationController?.isToolbarHidden = toolbarHidden
         
         cropView?.image = image

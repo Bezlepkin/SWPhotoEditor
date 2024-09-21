@@ -8,8 +8,6 @@
 import Foundation
 
 public final class PhotoEditorView: UIView {
-    public var colors  : [UIColor] = []
-    
     var canvasView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,12 +31,43 @@ public final class PhotoEditorView: UIView {
         return imageView
     }()
     
-    var topGradient: UIView = {
+    var drawingView: DrawingView = {
+        let drawingView = DrawingView()
+        drawingView.translatesAutoresizingMaskIntoConstraints = false
+        drawingView.contentMode = .scaleAspectFit
+        drawingView.isHidden = true
+        return drawingView
+    }()
+    
+    var typingCanvasView: TypingCanvasView = {
+        let typingCanvasView = TypingCanvasView()
+        typingCanvasView.translatesAutoresizingMaskIntoConstraints = false
+        typingCanvasView.contentMode = .scaleAspectFit
+        // typingCanvasView.isHidden = true
+        return typingCanvasView
+    }()
+    
+    // MARK: - Actions Toolbar
+    
+    var actionsToolbar: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         return view
     }()
+    
+    private var actionsToolBarStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 0
+        stackView.alignment = .fill
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    // MARK: - Top Toolbar
     
     var topToolbar: UIView = {
         let view = UIView()
@@ -50,20 +79,13 @@ public final class PhotoEditorView: UIView {
     private var topToolBarStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 15
+        stackView.spacing = 12
         stackView.alignment = .fill
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         return stackView
     }()
-    
-    var bottomGradient: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        return view
-    }()
-    
+
     var bottomToolbar: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -81,15 +103,6 @@ public final class PhotoEditorView: UIView {
         return stackView
     }()
     
-    var doneButton: HiglihtedButton = {
-        let button = HiglihtedButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Done", for: .normal)
-        button.isHidden = true
-        button.titleLabel?.font = UIFont(name: "System Semibold ", size: 16)
-        return button
-    }()
-    
     var deleteView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -97,6 +110,7 @@ public final class PhotoEditorView: UIView {
         view.isHidden = true
         return view
     }()
+    
     var deleteLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -106,6 +120,7 @@ public final class PhotoEditorView: UIView {
         label.text = ""
         return label
     }()
+    
     var colorPickerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +128,7 @@ public final class PhotoEditorView: UIView {
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         return view
     }()
+    
     var colorPickerViewBottomConstraint: NSLayoutConstraint!
     
     var colorsCollectionView: UICollectionView = {
@@ -120,86 +136,74 @@ public final class PhotoEditorView: UIView {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         // collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
     // MARK: - Buttons
     
-    var cropButton: HiglihtedButton = {
-        let button = HiglihtedButton()
+    var cropButton: ImageButton = {
+        let button = ImageButton(imageName: "PhotoEditorCropIcon")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
         return button
     }()
     
-    var drawButton: HiglihtedButton = {
-        let button = HiglihtedButton()
+    var drawButton: ImageButton = {
+        let button = ImageButton(imageName: "PhotoEditorDrawIcon")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
         return button
     }()
     
-    var textButton: HiglihtedButton = {
-        let button = HiglihtedButton()
+    var textButton: ImageButton = {
+        let button = ImageButton(imageName: "PhotoEditorTextIcon")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
         return button
     }()
     
-    var closeButton: HiglihtedButton = {
-        let button = HiglihtedButton()
+    var closeButton: ImageButton = {
+        let button = ImageButton(imageName: "PhotoEditorCloseIcon")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
         return button
     }()
     
-    var saveButton: HiglihtedButton = {
-        let button = HiglihtedButton()
+    var cancelButton: ImageButton = {
+        let button = ImageButton(imageName: "PhotoEditorArrowLeftIcon")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
         return button
     }()
     
-    var shareButton: HiglihtedButton = {
-        let button = HiglihtedButton()
+    var applyButton: ImageButton = {
+        let button = ImageButton(imageName: "PhotoEditorCheckIcon")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
+        button.backgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1)
         return button
     }()
     
-    var clearButton: HiglihtedButton = {
+    lazy var continueButton: HiglihtedButton = {
+        let bundle = Bundle(for: type(of: self))
+        let buttonTitle: String = NSLocalizedString("save", tableName: nil, bundle: bundle, value: "", comment: "")
+        
         let button = HiglihtedButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 25)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        button.setTitle(buttonTitle, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
+        button.backgroundColor = UIColor(red: 1, green: 0.72, blue: 0.01, alpha: 1)
+        button.layer.cornerRadius = 18
         return button
     }()
-    
-    var continueButton: HiglihtedButton = {
-        let button = HiglihtedButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = UIFont(name: "icomoon", size: 50)
-        return button
-    }()
-    
+
     // MARK: - End Buttons
     
-    
+    private var colors: [UIColor]!
     
     // MARK: - Initialize
     
-    required init() {
-        super.init(frame: CGRect.zero)
+    required init(frame: CGRect, colors: [UIColor]) {
+        super.init(frame: frame)
         self.backgroundColor = .black
+        self.colors = colors
         layoutElements()
     }
     
@@ -211,21 +215,23 @@ public final class PhotoEditorView: UIView {
         layoutCanvasView()
         layoutImageView()
         layoutCanvasImageView()
-        layoutTopGradient()
+        layoutDrawingView()
+        layoutTypingCanvasView()
         layoutTopToolbar()
+        layoutActionsToolbar()
         layoutTopToolBarStackView()
+        layoutActionsToolBarStackView()
         layoutCloseButton()
-        layoutBottomGradient()
+        layoutCancelButton()
         layoutBottomToolbar()
-        layoutBottomToolBarStackView()
         layoutContinueButton()
-        layoutDoneButton()
         layoutDeleteView()
         layoutDeleteLabel()
         layoutColorPickerView()
         layoutColorsCollectionView()
     }
     
+
     private func layoutCanvasView() {
         self.addSubview(canvasView)
         NSLayoutConstraint.activate([
@@ -260,22 +266,45 @@ public final class PhotoEditorView: UIView {
         ])
     }
     
-    private func layoutTopGradient() {
-        self.addSubview(topGradient)
+    private func layoutDrawingView() {
+        canvasView.addSubview(drawingView)
         NSLayoutConstraint.activate([
-            topGradient.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            topGradient.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            topGradient.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            drawingView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            drawingView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            drawingView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1),
+            drawingView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
+        ])
+    }
+    
+    private func layoutTypingCanvasView() {
+        canvasView.addSubview(typingCanvasView)
+        NSLayoutConstraint.activate([
+            typingCanvasView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            typingCanvasView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            typingCanvasView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1),
+            typingCanvasView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
     }
     
     private func layoutTopToolbar() {
         self.addSubview(topToolbar)
+        
         NSLayoutConstraint.activate([
             topToolbar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             topToolbar.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             topToolbar.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            topToolbar.heightAnchor.constraint(equalToConstant: 60)
+            topToolbar.heightAnchor.constraint(equalToConstant: 32)
+        ])
+    }
+    
+    private func layoutActionsToolbar() {
+        self.addSubview(actionsToolbar)
+
+        NSLayoutConstraint.activate([
+            actionsToolbar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            actionsToolbar.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            actionsToolbar.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            actionsToolbar.heightAnchor.constraint(equalToConstant: 32)
         ])
     }
     
@@ -283,30 +312,45 @@ public final class PhotoEditorView: UIView {
         topToolBarStackView.addArrangedSubview(cropButton)
         topToolBarStackView.addArrangedSubview(drawButton)
         topToolBarStackView.addArrangedSubview(textButton)
-        
         topToolbar.addSubview(topToolBarStackView)
+        
         NSLayoutConstraint.activate([
             topToolBarStackView.topAnchor.constraint(equalTo: topToolbar.topAnchor),
             topToolBarStackView.bottomAnchor.constraint(equalTo: topToolbar.bottomAnchor),
-            topToolBarStackView.trailingAnchor.constraint(equalTo: topToolbar.trailingAnchor, constant: -12)
+            topToolBarStackView.trailingAnchor.constraint(equalTo: topToolbar.trailingAnchor, constant: -16)
+        ])
+    }
+    
+    private func layoutActionsToolBarStackView() {
+        actionsToolBarStackView.addArrangedSubview(applyButton)
+        actionsToolbar.addSubview(actionsToolBarStackView)
+        
+        NSLayoutConstraint.activate([
+            actionsToolBarStackView.topAnchor.constraint(equalTo: actionsToolbar.topAnchor),
+            actionsToolBarStackView.bottomAnchor.constraint(equalTo: actionsToolbar.bottomAnchor),
+            actionsToolBarStackView.trailingAnchor.constraint(equalTo: actionsToolbar.trailingAnchor, constant: -16)
         ])
     }
     
     private func layoutCloseButton() {
         topToolbar.addSubview(closeButton)
+
         NSLayoutConstraint.activate([
             closeButton.centerYAnchor.constraint(equalTo: topToolbar.centerYAnchor),
-            closeButton.leadingAnchor.constraint(equalTo: topToolbar.leadingAnchor, constant: 12)
+            closeButton.leadingAnchor.constraint(equalTo: topToolbar.leadingAnchor, constant: 16),
+            closeButton.heightAnchor.constraint(equalToConstant: ImageButton.BUTTON_BORDER),
+            closeButton.widthAnchor.constraint(equalToConstant: ImageButton.BUTTON_BORDER)
         ])
     }
     
-    private func layoutBottomGradient() {
-        self.addSubview(bottomGradient)
+    private func layoutCancelButton() {
+        actionsToolbar.addSubview(cancelButton)
+
         NSLayoutConstraint.activate([
-            bottomGradient.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            bottomGradient.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            bottomGradient.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            bottomGradient.heightAnchor.constraint(equalToConstant: 80)
+            cancelButton.centerYAnchor.constraint(equalTo: actionsToolbar.centerYAnchor),
+            cancelButton.leadingAnchor.constraint(equalTo: actionsToolbar.leadingAnchor, constant: 16),
+            cancelButton.heightAnchor.constraint(equalToConstant: ImageButton.BUTTON_BORDER),
+            cancelButton.widthAnchor.constraint(equalToConstant: ImageButton.BUTTON_BORDER)
         ])
     }
     
@@ -320,33 +364,12 @@ public final class PhotoEditorView: UIView {
         ])
     }
     
-    private func layoutBottomToolBarStackView() {
-        bottomToolbar.addSubview(bottomToolBarStackView)
-        
-        bottomToolBarStackView.addArrangedSubview(saveButton)
-        bottomToolBarStackView.addArrangedSubview(shareButton)
-        bottomToolBarStackView.addArrangedSubview(clearButton)
-        
-        NSLayoutConstraint.activate([
-            bottomToolBarStackView.topAnchor.constraint(equalTo: bottomToolbar.topAnchor),
-            bottomToolBarStackView.leadingAnchor.constraint(equalTo: bottomToolbar.leadingAnchor, constant: 12),
-            bottomToolBarStackView.bottomAnchor.constraint(equalTo: bottomToolbar.bottomAnchor, constant: -8)
-        ])
-    }
-    
     private func layoutContinueButton() {
         bottomToolbar.addSubview(continueButton)
         NSLayoutConstraint.activate([
             continueButton.trailingAnchor.constraint(equalTo: bottomToolbar.trailingAnchor, constant: -12),
-            continueButton.bottomAnchor.constraint(equalTo: bottomToolbar.bottomAnchor, constant: -12)
-        ])
-    }
-    
-    private func layoutDoneButton() {
-        self.addSubview(doneButton)
-        NSLayoutConstraint.activate([
-            doneButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            doneButton.trailingAnchor.constraint(equalTo:self.trailingAnchor, constant: -12)
+            continueButton.bottomAnchor.constraint(equalTo: bottomToolbar.bottomAnchor, constant: -12),
+            continueButton.heightAnchor.constraint(equalToConstant: 36)
         ])
     }
     
@@ -388,12 +411,11 @@ public final class PhotoEditorView: UIView {
     private func layoutColorsCollectionView() {
         colorPickerView.addSubview(colorsCollectionView)
         let collectionViewHeight = calculateColorCellSize().height
-        
         NSLayoutConstraint.activate([
             colorsCollectionView.topAnchor.constraint(equalTo: colorPickerView.topAnchor),
-            colorsCollectionView.leadingAnchor.constraint(equalTo: colorPickerView.leadingAnchor, constant: 16),
-            colorsCollectionView.trailingAnchor.constraint(equalTo: colorPickerView.trailingAnchor, constant: -16),
-            // colorsCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight)
+            colorsCollectionView.leadingAnchor.constraint(equalTo: colorPickerView.leadingAnchor, constant: 0),
+            colorsCollectionView.trailingAnchor.constraint(equalTo: colorPickerView.trailingAnchor, constant: 0),
+            colorsCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight)
         ])
     }
     

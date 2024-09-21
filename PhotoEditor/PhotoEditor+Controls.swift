@@ -1,36 +1,43 @@
 //
-//  PhotoEditor+Controls.swift
-//  Pods
+//  PhotoEditorView.swift
+//  PhotoEditor
 //
-//  Created by Mohamed Hamed on 6/16/17.
-//
+//  Created by Igor Bezlepkin on 12.09.2024.
 //
 
 import Foundation
 import UIKit
 
-// MARK: - Control
-public enum Control {
-    case crop
-    case draw
-    case save
-    case share
-    case clear
+public enum ModeType {
+    case cropping
+    case drawing
+    case typing
 }
 
 extension PhotoEditorViewController {
-
+    
     // MARK: - Top Toolbar
     
     @objc func closeButtonWasTapped() {
         photoEditorDelegate?.canceledEditing()
         self.dismiss(animated: true, completion: nil)
     }
-
+    
+    @objc func cancelButtonWasTapped() {
+        view.endEditing(true)
+        setActionsToolbarVisibility(visibility: false)
+        contentView.colorPickerView.isHidden = true
+        contentView.drawingView.isHidden = true
+        hideToolbar(hide: false)
+        
+        handleCancelAction()
+    }
+    
     @objc func cropButtonTapped() {
+        activeMode = ModeType.cropping
         let controller = CropViewController()
         controller.delegate = self
-        controller.image = image
+        controller.image = currentImage
         controller.modalPresentationStyle = .fullScreen
         let navController = UINavigationController(rootViewController: controller)
         navController.view.backgroundColor = .black
@@ -39,15 +46,24 @@ extension PhotoEditorViewController {
     }
     
     @objc func drawButtonTapped() {
-        isDrawing = true
+        activeMode = ModeType.drawing
+        contentView.drawingView.isHidden = false
         contentView.canvasImageView.isUserInteractionEnabled = false
-        contentView.doneButton.isHidden = false
-        contentView.colorPickerView.isHidden = false
+        
+        setActionsToolbarVisibility(visibility: true)
+        setColorPickerVisibility(visibility: true)
+        
         hideToolbar(hide: true)
     }
     
     @objc func textButtonTapped() {
+        activeMode = ModeType.typing
+        setActionsToolbarVisibility(visibility: true)
+        setColorPickerVisibility(visibility: true)
+        hideToolbar(hide: true)
+        
         isTyping = true
+        /*
         let textView = UITextView(
             frame: CGRect(
                 x: 0,
@@ -71,43 +87,28 @@ extension PhotoEditorViewController {
         contentView.canvasImageView.addSubview(textView)
         // addGestures(view: textView)
         textView.becomeFirstResponder()
+         */
     }
     
-    @objc func doneButtonTapped() {
+    @objc func applyButtonTapped() {
         view.endEditing(true)
-        contentView.doneButton.isHidden = true
-        contentView.colorPickerView.isHidden = true
-        contentView.canvasImageView.isUserInteractionEnabled = true
+        setActionsToolbarVisibility(visibility: false)
+        setColorPickerVisibility(visibility: false)
+        
+        contentView.drawingView.isHidden = true
         hideToolbar(hide: false)
-        isDrawing = false
+
+        handleApplyAction()
     }
     
     //MARK: Bottom Toolbar
-    
-    @objc func saveButtonTapped() {
-        UIImageWriteToSavedPhotosAlbum( contentView.canvasView.toImage(),self, #selector(PhotoEditorViewController.image(_:withPotentialError:contextInfo:)), nil)
-    }
-    
-    @objc func shareButtonTapped() {
-        let activity = UIActivityViewController(activityItems: [ contentView.canvasView.toImage()], applicationActivities: nil)
-        present(activity, animated: true, completion: nil)
-    }
-    
-    @objc func clearButtonTapped() {
-        //clear drawing
-        contentView.canvasImageView.image = nil
-        //clear stickers and textviews
-        for subview in  contentView.canvasImageView.subviews {
-            subview.removeFromSuperview()
-        }
-    }
     
     @objc func continueButtonPressed() {
         let img =  contentView.canvasView.toImage()
         photoEditorDelegate?.doneEditing(image: img)
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     //MAKR: helper methods
     
     @objc func image(_ image: UIImage, withPotentialError error: NSErrorPointer, contextInfo: UnsafeRawPointer) {
@@ -116,22 +117,34 @@ extension PhotoEditorViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func hideControls() {
-        for control in hiddenControls {
-            switch control {
-
-            case .clear:
-                contentView.clearButton.isHidden = true
-            case .crop:
-                contentView.cropButton.isHidden = true
-            case .draw:
-                contentView.drawButton.isHidden = true
-            case .save:
-                contentView.saveButton.isHidden = true
-            case .share:
-                contentView.shareButton.isHidden = true
+    private func handleCancelAction() {
+        switch activeMode {
+        case .cropping: break
+        case .drawing:
+            // contentView.drawingView.getProcessedImage()
+            let image: UIImage? = contentView.drawingView.getProcessedImage()
+            if (image != nil) {
+                contentView.drawingView.clearDrawingResult()
             }
+
+            break
+        case .typing: break
+        case .none: break
         }
     }
     
+    private func handleApplyAction() {
+        switch activeMode {
+        case .cropping: break
+        case .drawing:
+            let image: UIImage? = contentView.drawingView.getProcessedImage()
+            if let image {
+                let mergedImage: UIImage = currentImage.mergeWith(topImage: image)
+                setImage(image: mergedImage)
+            }
+            break
+        case .typing: break
+        case .none: break
+        }
+    }
 }

@@ -13,7 +13,7 @@ public final class DrawingView: UIView {
     var lastPoint: CGPoint
     var color: UIColor
     
-    private var canvasImageView: UIImageView = {
+    private var canvas: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -26,7 +26,7 @@ public final class DrawingView: UIView {
         
         super.init(frame: frame)
         
-        layoutCanvasImageView()
+        layoutCanvas()
     }
     
     required init?(coder: NSCoder) {
@@ -62,11 +62,11 @@ public final class DrawingView: UIView {
     }
     
     func getProcessedImage() -> UIImage? {
-        return canvasImageView.image
+        return canvas.image
     }
     
     func clearDrawingResult() {
-        canvasImageView.image = nil
+        canvas.image = nil
     }
     
     private func drawLineFrom(_ fromPoint: CGPoint, toPoint: CGPoint) {
@@ -74,7 +74,7 @@ public final class DrawingView: UIView {
         UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
         
         if let context = UIGraphicsGetCurrentContext() {
-            canvasImageView.image?.draw(in: CGRect(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
+            canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
 
             context.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
             context.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
@@ -84,21 +84,21 @@ public final class DrawingView: UIView {
             context.setBlendMode( CGBlendMode.normal)
             context.strokePath()
 
-            canvasImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+            canvas.image = UIGraphicsGetImageFromCurrentImageContext()
         }
         // clear draw
-        // canvasImageView.removeFromSuperview()
+        // canvas.removeFromSuperview()
         UIGraphicsEndImageContext()
     }
     
-    private func layoutCanvasImageView() {
-        addSubview(canvasImageView)
+    private func layoutCanvas() {
+        addSubview(canvas)
         
         NSLayoutConstraint.activate([
-            canvasImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            canvasImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            canvasImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
-            canvasImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1)
+            canvas.centerXAnchor.constraint(equalTo: centerXAnchor),
+            canvas.centerYAnchor.constraint(equalTo: centerYAnchor),
+            canvas.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
+            canvas.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1)
         ])
     }
 }

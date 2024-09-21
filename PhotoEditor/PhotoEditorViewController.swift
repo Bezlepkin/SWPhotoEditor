@@ -2,16 +2,14 @@ import UIKit
 
 public final class PhotoEditorViewController: UIViewController {
     
-    var contentView = PhotoEditorView()
     public var image: UIImage?
-    public var colors  : [UIColor] = [] // array of Colors that will show while drawing or typing
+    public var colors: [UIColor] = [] // array of Colors that will show while drawing or typing
     public var photoEditorDelegate: PhotoEditorDelegate?
     lazy var colorsCollectionViewDelegate: ColorsCollectionViewDelegate = ColorsCollectionViewDelegate(displayedView: view)
-    public var hiddenControls : [Control] = []  // list of controls to be hidden
-    
+    lazy var contentView = PhotoEditorView(frame: view.frame, colors: colors)
+
     var drawColor: UIColor = UIColor.black
     var textColor: UIColor = UIColor.white
-    var isDrawing: Bool = false
     var lastPoint: CGPoint!
     var swiped = false
     var lastPanPoint: CGPoint?
@@ -22,18 +20,21 @@ public final class PhotoEditorViewController: UIViewController {
     var imageViewToPan: UIImageView?
     var isTyping: Bool = false
     
+    // Active mode name
+    var activeMode: ModeType?
+    // The image we work with during processing
+    var currentImage: UIImage!
+
     public override func loadView() {
-        registerFont()
-        contentView.colors = colors
+        super.loadView()
         view = contentView
-        // super.loadView()
     }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
         
-        self.setImageView(image: image!)
+        self.setImage(image: image!)
         
         contentView.deleteView.layer.cornerRadius = contentView.deleteView.bounds.height / 2
         contentView.deleteView.layer.borderWidth = 2.0
@@ -54,7 +55,6 @@ public final class PhotoEditorViewController: UIViewController {
         
         
         configureCollectionView()
-        hideControls()
     }
     
     func configureCollectionView() {
@@ -76,7 +76,8 @@ public final class PhotoEditorViewController: UIViewController {
         contentView.colorsCollectionView.register(ColorCollectionViewCell.self, forCellWithReuseIdentifier: ColorCollectionViewCell.id)
     }
     
-    func setImageView(image: UIImage) {
+    func setImage(image: UIImage) {
+        currentImage = image
         contentView.imageView.image = image
         let size = image.suitableSize(widthLimit: UIScreen.main.bounds.width)
         contentView.imageViewHeightConstraint.constant = (size?.height)!
@@ -84,30 +85,36 @@ public final class PhotoEditorViewController: UIViewController {
     
     func hideToolbar(hide: Bool) {
         contentView.topToolbar.isHidden = hide
-        contentView.topGradient.isHidden = hide
+        // contentView.topGradient.isHidden = hide
         contentView.bottomToolbar.isHidden = hide
-        contentView.bottomGradient.isHidden = hide
+        // contentView.bottomGradient.isHidden = hide
+    }
+    
+    func setActionsToolbarVisibility(visibility: Bool) {
+        contentView.actionsToolbar.isHidden = !visibility
+    }
+    
+    func setColorPickerVisibility(visibility: Bool) {
+        contentView.colorPickerView.isHidden = !visibility
     }
     
     // MARK: Setup actions
     
     private func setupActions() {
         contentView.closeButton.addTarget(self, action: #selector(closeButtonWasTapped), for: .touchUpInside)
+        contentView.cancelButton.addTarget(self, action: #selector(cancelButtonWasTapped), for: .touchUpInside)
         contentView.cropButton.addTarget(self, action: #selector(cropButtonTapped), for: .touchUpInside)
         contentView.drawButton.addTarget(self, action: #selector(drawButtonTapped), for: .touchUpInside)
         contentView.textButton.addTarget(self, action: #selector(textButtonTapped), for: .touchUpInside)
-        contentView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
-        contentView.saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        contentView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        contentView.clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        contentView.applyButton.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
         contentView.continueButton.addTarget(self, action: #selector(continueButtonPressed), for: .touchUpInside)
     }
 }
 
 extension PhotoEditorViewController: ColorDelegate {
     func didSelectColor(color: UIColor) {
-        if isDrawing {
-            self.drawColor = color
+        if activeMode == ModeType.drawing {
+            contentView.drawingView.color = color
         } else if activeTextView != nil {
             activeTextView?.textColor = color
             textColor = color
