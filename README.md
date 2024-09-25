@@ -1,5 +1,8 @@
 # SWPhotoEditor
 
+## Overview
+SWPhotoEditor s a simple photo editor for iOS. SWPhotoEditor allows users to cropping, drawing and typing. 
+
 ## Features
 - [x] Cropping
 - [x] Drawing with colors
