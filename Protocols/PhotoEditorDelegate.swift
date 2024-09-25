@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+public protocol PhotoEditorDelegate: AnyObject {
+    func doneEditing(image: UIImage)
+    func canceledEditing()
+}

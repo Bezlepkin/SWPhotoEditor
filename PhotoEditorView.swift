@@ -15,6 +15,8 @@ public final class PhotoEditorView: UIView {
         return view
     }()
     
+    var canvasViewBottomConstraint: NSLayoutConstraint!
+    
     var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,8 +33,8 @@ public final class PhotoEditorView: UIView {
         return imageView
     }()
     
-    var drawingView: DrawingView = {
-        let drawingView = DrawingView()
+    var drawingView: DrawingCanvasView = {
+        let drawingView = DrawingCanvasView()
         drawingView.translatesAutoresizingMaskIntoConstraints = false
         drawingView.contentMode = .scaleAspectFit
         drawingView.isHidden = true
@@ -43,9 +45,11 @@ public final class PhotoEditorView: UIView {
         let typingCanvasView = TypingCanvasView()
         typingCanvasView.translatesAutoresizingMaskIntoConstraints = false
         typingCanvasView.contentMode = .scaleAspectFit
-        // typingCanvasView.isHidden = true
+        typingCanvasView.isHidden = true
         return typingCanvasView
     }()
+    
+    var typingCanvasBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Actions Toolbar
     
@@ -238,25 +242,32 @@ public final class PhotoEditorView: UIView {
             canvasView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             canvasView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             canvasView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            canvasView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            canvasView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            canvasView.topAnchor.constraint(equalTo: self.topAnchor),
         ])
+        
+        canvasViewBottomConstraint = canvasView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+        canvasViewBottomConstraint.isActive = true
     }
     
     private func layoutImageView() {
         canvasView.addSubview(imageView)
+        
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: canvasView.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: canvasView.centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: canvasView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: canvasView.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: canvasView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: canvasView.bottomAnchor)
+            // imageView.topAnchor.constraint(equalTo: canvasView.topAnchor),
+            // imageView.bottomAnchor.constraint(equalTo: canvasView.bottomAnchor)
         ])
+        
         imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: 667)
         imageViewHeightConstraint.isActive = true
     }
     
     private func layoutCanvasImageView() {
+        
         canvasView.addSubview(canvasImageView)
         NSLayoutConstraint.activate([
             canvasImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
@@ -284,6 +295,9 @@ public final class PhotoEditorView: UIView {
             typingCanvasView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1),
             typingCanvasView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
+        
+        typingCanvasBottomConstraint = typingCanvasView.heightAnchor.constraint(equalToConstant: 667)
+        typingCanvasBottomConstraint.isActive = true
     }
     
     private func layoutTopToolbar() {
@@ -401,10 +415,10 @@ public final class PhotoEditorView: UIView {
             colorPickerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             colorPickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             colorPickerView.heightAnchor.constraint(equalToConstant: 40),
-            colorPickerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: safeAreaInsetsBottom * -1)
+            // colorPickerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: safeAreaInsetsBottom * -1)
         ])
         
-        colorPickerViewBottomConstraint = colorPickerView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        colorPickerViewBottomConstraint = colorPickerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: safeAreaInsetsBottom * -1)
         colorPickerViewBottomConstraint.isActive = true
     }
     

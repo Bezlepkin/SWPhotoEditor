@@ -1,5 +1,5 @@
 //
-//  DrawingView.swift
+//  DrawingCanvasView.swift
 //  PhotoEditor
 //
 //  Created by Igor Bezlepkin on 19.09.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class DrawingView: UIView {
+public final class DrawingCanvasView: UIView {
     var isDrawing: Bool = true
     var swiped: Bool = false
     var lastPoint: CGPoint
@@ -17,6 +17,7 @@ public final class DrawingView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        
         return imageView
     }()
     

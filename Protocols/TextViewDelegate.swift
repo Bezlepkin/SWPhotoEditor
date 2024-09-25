@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+public protocol TextViewDelegate: AnyObject {
+    func textViewDidEndEditing()
+    func textViewDidBeginEditing()
+}

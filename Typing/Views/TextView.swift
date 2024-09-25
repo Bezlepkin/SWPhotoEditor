@@ -1,5 +1,5 @@
 //
-//  TextView.swift
+//  TextViewDelegate.swift
 //  PhotoEditor
 //
 //  Created by Igor Bezlepkin on 20.09.2024.
@@ -9,31 +9,32 @@ import Foundation
 
 public final class TextView: UIView {
     var textColor: UIColor?;
-    
-    private var textViewContainer: UIView = {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.contentMode = .scaleAspectFit
-        container.backgroundColor = .green
-        
-        return container
-    }()
-    
+    weak var delegate: TextViewDelegate?
+
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .center
-        textView.font = UIFont(name: "Helvetica", size: 24)
+        textView.font = UIFont(name: "Helvetica", size: 18)
         textView.textColor = textColor
-        textView.layer.shadowColor = UIColor.black.cgColor
-        textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
-        textView.layer.shadowOpacity = 0.2
-        textView.layer.shadowRadius = 1.0
+        textView.tintColor = .white
         textView.layer.backgroundColor = UIColor.clear.cgColor
         textView.autocorrectionType = .no
+        textView.textContainerInset = .zero
         textView.isScrollEnabled = false
+        textView.delegate = self
         
         return textView
+    }()
+    
+    private var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Введите текст"
+        label.textColor = UIColor.black.withAlphaComponent(0.7)
+        label.font = UIFont(name: "Helvetica", size: 18)
+        
+        return label
     }()
     
     
@@ -41,33 +42,75 @@ public final class TextView: UIView {
         textColor = .black
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        layoutTextViewContainer()
+        // layoutPlaceholderLabel()
+        setupUI()
         layoutTextView()
+        
+        textView.becomeFirstResponder()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func layoutTextViewContainer() {
-        addSubview(textViewContainer)
-        
-        NSLayoutConstraint.activate([
-            textViewContainer.topAnchor.constraint(equalTo: topAnchor),
-            textViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+    func setColor(color: UIColor) {
+        textView.textColor = color
+    }
+    
+    private func placeholderVisibility(visibility: Bool) {
+        placeholderLabel.isHidden = !visibility
+    }
+    
+    private func setupUI() {
+        backgroundColor = .none
+        layer.cornerRadius = 4
     }
     
     private func layoutTextView() {
-        textViewContainer.addSubview(textView)
+        addSubview(textView)
         
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: textViewContainer.topAnchor, constant: 6),
-            textView.leadingAnchor.constraint(equalTo: textViewContainer.leadingAnchor, constant: 6),
-            textView.trailingAnchor.constraint(equalTo: textViewContainer.trailingAnchor, constant: -6),
-            textView.bottomAnchor.constraint(equalTo: textViewContainer.bottomAnchor, constant: -6)
+            textView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4)
         ])
+    }
+    
+    private func layoutPlaceholderLabel() {
+        addSubview(placeholderLabel)
+        
+        NSLayoutConstraint.activate([
+            placeholderLabel.topAnchor.constraint(equalTo: topAnchor),
+            placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            placeholderLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            placeholderLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
+
+extension TextView: UITextViewDelegate {
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        if (updatedText.count > 0) {
+            // placeholderVisibility(visibility: false)
+            backgroundColor = .white
+        } else {
+            // placeholderVisibility(visibility: true)
+            backgroundColor = .none
+        }
+        
+        return true
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.textViewDidEndEditing()
+    }
+    
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        delegate?.textViewDidBeginEditing()
     }
 }

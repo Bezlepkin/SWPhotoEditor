@@ -1,9 +1,10 @@
 import UIKit
 
 public final class PhotoEditorViewController: UIViewController {
-    
+    // The image to be processed
     public var image: UIImage?
-    public var colors: [UIColor] = [] // array of Colors that will show while drawing or typing
+    // Array of colors that will show while drawing or typing
+    // public var colors: [UIColor] = []
     public var photoEditorDelegate: PhotoEditorDelegate?
     lazy var colorsCollectionViewDelegate: ColorsCollectionViewDelegate = ColorsCollectionViewDelegate(displayedView: view)
     lazy var contentView = PhotoEditorView(frame: view.frame, colors: colors)
@@ -24,6 +25,18 @@ public final class PhotoEditorViewController: UIViewController {
     var activeMode: ModeType?
     // The image we work with during processing
     var currentImage: UIImage!
+    
+    public var colors: [UIColor] = [
+        Color.white.color,
+        Color.black.color,
+        Color.red.color,
+        Color.green.color,
+        Color.blue.color,
+        Color.yellow.color,
+        Color.pink.color,
+        Color.orange.color,
+        Color.brown.color
+    ]
 
     public override func loadView() {
         super.loadView()
@@ -46,6 +59,8 @@ public final class PhotoEditorViewController: UIViewController {
         edgePan.delegate = self
         self.view.addGestureRecognizer(edgePan)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
                                                name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
@@ -98,6 +113,10 @@ public final class PhotoEditorViewController: UIViewController {
         contentView.colorPickerView.isHidden = !visibility
     }
     
+    func setTypingCanvasViewVisibility(visibility: Bool) {
+        contentView.typingCanvasView.isHidden = !visibility
+    }
+    
     // MARK: Setup actions
     
     private func setupActions() {
@@ -112,9 +131,11 @@ public final class PhotoEditorViewController: UIViewController {
 }
 
 extension PhotoEditorViewController: ColorDelegate {
-    func didSelectColor(color: UIColor) {
+    public func didSelectColor(color: UIColor) {
         if activeMode == ModeType.drawing {
             contentView.drawingView.color = color
+        } else if activeMode == ModeType.typing {
+            contentView.typingCanvasView.setColor(color: color)
         } else if activeTextView != nil {
             activeTextView?.textColor = color
             textColor = color

@@ -2,8 +2,7 @@
 //  UIView+Image.swift
 //  Photo Editor
 //
-//  Created by Mohamed Hamed on 4/23/17.
-//  Copyright © 2017 Mohamed Hamed. All rights reserved.
+//  Created by Igor Bezlepkin on 20.09.2024.
 //
 
 import UIKit
@@ -12,11 +11,18 @@ extension UIView {
     /**
      Convert UIView to UIImage
      */
-    func toImage() -> UIImage {
+    func toImage() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0)
         self.drawHierarchy(in: self.bounds, afterScreenUpdates: false)
-        let snapshotImageFromMyView = UIGraphicsGetImageFromCurrentImageContext()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return snapshotImageFromMyView!
+        /*
+        guard let imageData = image?.pngData() else {
+            return nil
+        }
+        
+        return UIImage.init(data: imageData)
+         */
+        return image
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension PhotoEditorViewController: UITextViewDelegate {
-    
+    /*
     public func textViewDidChange(_ textView: UITextView) {
         let rotation = atan2(textView.transform.b, textView.transform.a)
         if rotation == 0 {
@@ -49,5 +49,5 @@ extension PhotoEditorViewController: UITextViewDelegate {
                         textView.center = self.lastTextViewTransCenter!
         }, completion: nil)
     }
-    
+    */
 }
