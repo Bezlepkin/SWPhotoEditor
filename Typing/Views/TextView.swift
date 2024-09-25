@@ -45,7 +45,6 @@ public final class TextView: UIView {
         // layoutPlaceholderLabel()
         setupUI()
         layoutTextView()
-        
         textView.becomeFirstResponder()
     }
     
