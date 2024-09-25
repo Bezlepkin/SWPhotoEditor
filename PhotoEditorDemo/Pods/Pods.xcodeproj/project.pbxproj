@@ -44,7 +44,6 @@
 		84AB5BE1533F3D4CD31B9C2C8DA196A4 /* PhotoEditorTextIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C54CBD581B6EE94EA1CDD3A975880E8 /* PhotoEditorTextIcon.png */; };
 		902AFFC2B96FBB684F581776B6FA7710 /* TypingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632E574B957FDE1C5A2362031ABB75B5 /* TypingCanvasView.swift */; };
 		9D705CBE679A0B302011DECA705F7A6A /* PhotoEditorArrowLeftIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49ADFA5929D50BF33303FAC101515589 /* PhotoEditorArrowLeftIcon@2x.png */; };
-		A014B9BD4E98B12FA07CA421E3CCB211 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF73DCECE4A95BECC2A9771D117B603B /* Protocols.swift */; };
 		A150FCD427C165E15679E2D53A10F7A0 /* PhotoEditorCloseIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85BC1FDACB2E885C9153AEAC077B1260 /* PhotoEditorCloseIcon@3x.png */; };
 		A7D012AFC011B5C66C2EC3FBFF6F5E26 /* PhotoEditorTextIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B32C705FE177A5D572871A0EA76C2468 /* PhotoEditorTextIcon@2x.png */; };
 		A800B673F088622F3FC169496E98011B /* PhotoEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C2E96AB8B59D185369D86C030AB000 /* PhotoEditorViewController.swift */; };
@@ -86,7 +85,7 @@
 		06B7DC6AD47E9609943F3907D6BEF19A /* HiglihtedButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HiglihtedButton.swift; sourceTree = "<group>"; };
 		07CD7A6FB4B405B9E3ABADDB01DE2CEE /* TextViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TextViewDelegate.swift; sourceTree = "<group>"; };
 		0A74C88D94890C840DAA2AED05CC5DC3 /* DrawingCanvasView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
-		12E53B2DB60C9BA4FB7F36052002A208 /* PhotoEditor.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = PhotoEditor.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		12E53B2DB60C9BA4FB7F36052002A208 /* PhotoEditor.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = PhotoEditor.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		13EA5644EC77A6018181513FB12F73FE /* Pods-PhotoEditorDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PhotoEditorDemo.release.xcconfig"; sourceTree = "<group>"; };
 		16EEA59CE8DC1A36330BE213FEE9156F /* Pods-PhotoEditorDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PhotoEditorDemo-acknowledgements.plist"; sourceTree = "<group>"; };
 		17CB2202514D012AC922BDD004D7275C /* TextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
@@ -125,9 +124,9 @@
 		937AB526B79E4025F9649D24ECF37713 /* Pods-PhotoEditorDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PhotoEditorDemo-dummy.m"; sourceTree = "<group>"; };
 		94BD7E7B41BC036729EC8A8D7837100E /* PhotoEditorDrawIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "PhotoEditorDrawIcon@3x.png"; sourceTree = "<group>"; };
 		96EF785D854F50E74A2B26365DB63BDE /* PhotoEditor-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PhotoEditor-Info.plist"; sourceTree = "<group>"; };
-		97E211CF62EAA2F6882E9A06DCF91E40 /* icomoon.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = icomoon.ttf; sourceTree = "<group>"; };
+		97E211CF62EAA2F6882E9A06DCF91E40 /* icomoon.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
 		9A9E8E59627378DD1381662068783AD2 /* CropRectView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CropRectView.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A47B15DE68466BCFDA72D584D1EEB8DA /* Pods-PhotoEditorDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PhotoEditorDemo-umbrella.h"; sourceTree = "<group>"; };
 		A5AF5A5E13907BDF7795A583F8F88356 /* Pods-PhotoEditorDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PhotoEditorDemo-Info.plist"; sourceTree = "<group>"; };
 		A99F310E986EB0AFFDD12265EED48D08 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -152,7 +151,6 @@
 		F3931552A4C26A3C333BD8986EC7A095 /* PhotoEditorCheckIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "PhotoEditorCheckIcon@2x.png"; sourceTree = "<group>"; };
 		F86CA150DFAC7AFC1044312A03F76568 /* PhotoEditor-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PhotoEditor-dummy.m"; sourceTree = "<group>"; };
 		F8FA1496023A3F58CC627D15699BB262 /* CropViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
-		FF73DCECE4A95BECC2A9771D117B603B /* Protocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = PhotoEditor/Protocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +178,6 @@
 			children = (
 				F8FA1496023A3F58CC627D15699BB262 /* CropViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -189,7 +186,6 @@
 			children = (
 				A99F310E986EB0AFFDD12265EED48D08 /* ColorCollectionViewCell.swift */,
 			);
-			name = Cell;
 			path = Cell;
 			sourceTree = "<group>";
 		};
@@ -222,7 +218,6 @@
 			children = (
 				D47E9B5711ECF20E719CC2C55B6130A4 /* ColorsCollectionViewDelegate.swift */,
 			);
-			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -279,7 +274,6 @@
 			children = (
 				0A74C88D94890C840DAA2AED05CC5DC3 /* DrawingCanvasView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -315,7 +309,6 @@
 				17CB2202514D012AC922BDD004D7275C /* TextView.swift */,
 				632E574B957FDE1C5A2362031ABB75B5 /* TypingCanvasView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -388,7 +381,6 @@
 			children = (
 				11FC5E96F1ABCF60F284B16A8686DCAF /* Cell */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -398,7 +390,6 @@
 				9A9E8E59627378DD1381662068783AD2 /* CropRectView.swift */,
 				33FC775017F7F20A0A495385B3746E2F /* CropView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -431,7 +422,6 @@
 				AF8D0875544F3801E24B942589F9153F /* PhotoEditor+UITextView.swift */,
 				2FED0D3FE65624D9C5AFC887E58448A5 /* PhotoEditorView.swift */,
 				D1C2E96AB8B59D185369D86C030AB000 /* PhotoEditorViewController.swift */,
-				FF73DCECE4A95BECC2A9771D117B603B /* Protocols.swift */,
 				A20A3DCF2388971DF58ED06FCE16BB24 /* Color */,
 				4B8E6F7E9C784C2CB7F027A8924BE427 /* Crop */,
 				A888CE898C8F61CDDBB0808B0C44D07D /* Drawing */,
@@ -488,7 +478,6 @@
 				5FFD09AB53220BF020FDE31502521F73 /* UIImageView+Alpha.swift */,
 				021C7C3A2C09EC4131F1B4135F72466C /* UIView+Image.swift */,
 			);
-			name = Extension;
 			path = Extension;
 			sourceTree = "<group>";
 		};
@@ -645,7 +634,6 @@
 				3CFB923DA42589CE1F7A419DF10DC813 /* PhotoEditorDelegate.swift in Sources */,
 				B810FB2F20EC87E13840FE166193979B /* PhotoEditorView.swift in Sources */,
 				A800B673F088622F3FC169496E98011B /* PhotoEditorViewController.swift in Sources */,
-				A014B9BD4E98B12FA07CA421E3CCB211 /* Protocols.swift in Sources */,
 				5059D6101B05765B1D3A4D79CC9716EB /* ResizeControl.swift in Sources */,
 				A97A68AA787800E7278AB98CD91F2954 /* TextView.swift in Sources */,
 				66D4F265384EC61C48734E315777E269 /* TextViewDelegate.swift in Sources */,

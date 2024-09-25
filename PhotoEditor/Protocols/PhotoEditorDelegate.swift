@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol PhotoEditorDelegate: AnyObject {
+@objc public protocol PhotoEditorDelegate {
     func doneEditing(image: UIImage)
     func canceledEditing()
 }
