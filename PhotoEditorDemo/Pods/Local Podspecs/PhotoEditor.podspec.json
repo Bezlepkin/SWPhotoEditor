@@ -2,13 +2,13 @@
   "name": "PhotoEditor",
   "summary": "Photo Editor supports drawing, writing text and adding stickers and emojis.",
   "version": "1.0.0",
-  "homepage": "https://github.com/Bezlepkin/PhotoEditor",
+  "homepage": "https://github.com/Bezlepkin/SWPhotoEditor",
   "license": "MIT",
   "authors": {
     "Mohamed Hamed": "mohamed.hamed.ibrahem@gmail.com"
   },
   "source": {
-    "git": "https://github.com/Bezlepkin/PhotoEditor.git",
+    "git": "https://github.com/Bezlepkin/SWPhotoEditor.git",
     "tag": "1.0.0"
   },
   "platforms": {
