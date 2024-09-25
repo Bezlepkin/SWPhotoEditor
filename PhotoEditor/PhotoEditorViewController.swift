@@ -2,7 +2,7 @@ import UIKit
 
 public final class PhotoEditorViewController: UIViewController {
     // The image to be processed
-    public var image: UIImage?
+    @objc public var image: UIImage?
     // Array of colors that will show while drawing or typing
     // public var colors: [UIColor] = []
     public var photoEditorDelegate: PhotoEditorDelegate?
