@@ -151,7 +151,11 @@
 		F12D3AE12CA3F79D00E657B1 /* PhotoEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorDelegate.swift; sourceTree = "<group>"; };
 		F12D3AE32CA3F8EF00E657B1 /* ColorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDelegate.swift; sourceTree = "<group>"; };
 		F12D3AE52CA3FA5400E657B1 /* TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewDelegate.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		F18656302C94CFD000412FAD /* PhotoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorView.swift; sourceTree = "<group>"; };
+=======
+		F18656302C94CFD000412FAD /* PhotoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEditorView.swift; path = PhotoEditor/PhotoEditorView.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		F88B824C128864CBC3EC711E1FDBD0A7 /* PhotoEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PhotoEditor.debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -425,7 +429,8 @@
 			children = (
 				F12D3AD02C9C128300E657B1 /* Views */,
 			);
-			path = Drawing;
+			name = Drawing;
+			path = PhotoEditor/Drawing;
 			sourceTree = "<group>";
 		};
 		F12D3AD02C9C128300E657B1 /* Views */ = {
@@ -441,7 +446,8 @@
 			children = (
 				F12D3AD82C9DB8FE00E657B1 /* Views */,
 			);
-			path = Typing;
+			name = Typing;
+			path = PhotoEditor/Typing;
 			sourceTree = "<group>";
 		};
 		F12D3AD82C9DB8FE00E657B1 /* Views */ = {
@@ -458,7 +464,12 @@
 			children = (
 				F12D3ADE2CA3F68300E657B1 /* Color.swift */,
 			);
+<<<<<<< Updated upstream
 			path = Enums;
+=======
+			name = Enums;
+			path = PhotoEditor/Enums;
+>>>>>>> Stashed changes
 			sourceTree = "<group>";
 		};
 		F12D3AE02CA3F78D00E657B1 /* Protocols */ = {
@@ -468,7 +479,12 @@
 				F12D3AE32CA3F8EF00E657B1 /* ColorDelegate.swift */,
 				F12D3AE52CA3FA5400E657B1 /* TextViewDelegate.swift */,
 			);
+<<<<<<< Updated upstream
 			path = Protocols;
+=======
+			name = Protocols;
+			path = PhotoEditor/Protocols;
+>>>>>>> Stashed changes
 			sourceTree = "<group>";
 		};
 		F455217FEC6E4A50C7DB101E6E81CF30 /* Pod */ = {
