@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         let photoEditor = PhotoEditorViewController()
         
         photoEditor.image = image
+        /*
         photoEditor.colors = [
             Color.white.color,
             Color.black.color,
@@ -42,6 +43,7 @@ class ViewController: UIViewController {
             Color.orange.color,
             Color.brown.color
         ]
+         */
         photoEditor.modalPresentationStyle = .fullScreen
         
         self.present(photoEditor, animated: true, completion: nil)
