@@ -5,7 +5,7 @@ public final class PhotoEditorViewController: UIViewController {
     @objc public var image: UIImage?
     // Array of colors that will show while drawing or typing
     // public var colors: [UIColor] = []
-    public var photoEditorDelegate: PhotoEditorDelegate?
+    @objc public var photoEditorDelegate: PhotoEditorDelegate?
     lazy var colorsCollectionViewDelegate: ColorsCollectionViewDelegate = ColorsCollectionViewDelegate(displayedView: view)
     lazy var contentView = PhotoEditorView(frame: view.frame, colors: colors)
 
