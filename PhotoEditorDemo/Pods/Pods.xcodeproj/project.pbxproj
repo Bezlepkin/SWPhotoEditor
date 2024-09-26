@@ -62,6 +62,7 @@
 		E0D8DA132F540AD9BCD2023084778295 /* PhotoEditorCheckIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3931552A4C26A3C333BD8986EC7A095 /* PhotoEditorCheckIcon@2x.png */; };
 		E5525DED0DB276771B4D75B0D3BF1787 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA1496023A3F58CC627D15699BB262 /* CropViewController.swift */; };
 		EFB3EDA1B96A66691F48C5B896174AB4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D416A179F071C965AD0488CC42E75B /* Color.swift */; };
+		F18E4B3F2CA5451D00A73D61 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F18E4B412CA5451D00A73D61 /* Localizable.strings */; };
 		F5DE4317D856AD51166EC15670377956 /* PhotoEditorDrawIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BD7E7B41BC036729EC8A8D7837100E /* PhotoEditorDrawIcon@3x.png */; };
 		F980E5113686F99F3BC98C072009C62E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 		FAC296EE42707BF73DC5F88DBB2D6CF2 /* PhotoEditor+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923089595E49F7AF6E1BA113C496493 /* PhotoEditor+Gestures.swift */; };
@@ -148,6 +149,8 @@
 		E708841717F85456499A4D5253C5592B /* ColorDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorDelegate.swift; sourceTree = "<group>"; };
 		E7ABA76C4EB2F2F76D9ABB2D25AC7BE2 /* PhotoEditorDrawIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = PhotoEditorDrawIcon.png; sourceTree = "<group>"; };
 		E8238505C900A8EE76950B86FFFCC137 /* PhotoEditor+Keyboard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PhotoEditor+Keyboard.swift"; path = "PhotoEditor/PhotoEditor+Keyboard.swift"; sourceTree = "<group>"; };
+		F18E4B402CA5451D00A73D61 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F18E4B422CA5452300A73D61 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F3931552A4C26A3C333BD8986EC7A095 /* PhotoEditorCheckIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "PhotoEditorCheckIcon@2x.png"; sourceTree = "<group>"; };
 		F86CA150DFAC7AFC1044312A03F76568 /* PhotoEditor-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PhotoEditor-dummy.m"; sourceTree = "<group>"; };
 		F8FA1496023A3F58CC627D15699BB262 /* CropViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
@@ -413,6 +416,7 @@
 		CA6CBCC3A417E26B84DB20E642E98C36 /* PhotoEditor */ = {
 			isa = PBXGroup;
 			children = (
+				F18E4B412CA5451D00A73D61 /* Localizable.strings */,
 				B77CB537CD9E9CEDB6814B51B82E9AE9 /* PhotoEditor+Controls.swift */,
 				D1226F07223119FD25C801F513745281 /* PhotoEditor+Crop.swift */,
 				3D723EB974E950095BEC353269BB4FE3 /* PhotoEditor+Drawing.swift */,
@@ -556,6 +560,7 @@
 			knownRegions = (
 				Base,
 				en,
+				ru,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 7D293E392C45F5ADB1A9EBA9746CB283 /* Products */;
@@ -575,6 +580,7 @@
 			files = (
 				6100ED64A4C7913200C17F29368D622C /* icomoon.ttf in Resources */,
 				55FEE9B50315D9A33831644C3C60EC53 /* PhotoCropEditorBorder.png in Resources */,
+				F18E4B3F2CA5451D00A73D61 /* Localizable.strings in Resources */,
 				6A2D7C7908A531B923366E80629DB156 /* PhotoCropEditorBorder@2x.png in Resources */,
 				B9AC8ACF1055D6A630E020DFC2E4A652 /* PhotoCropEditorBorder@3x.png in Resources */,
 				AE8BD9B7EBCB4B325605E79B5DD4C0EF /* PhotoEditorArrowLeftIcon.png in Resources */,
@@ -664,6 +670,19 @@
 			targetProxy = C40E7A2039C3E44626645BF16B3ADACE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F18E4B412CA5451D00A73D61 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F18E4B402CA5451D00A73D61 /* en */,
+				F18E4B422CA5452300A73D61 /* ru */,
+			);
+			name = Localizable.strings;
+			path = PhotoEditor;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2B9E26EAE2CD392AD762421F663075A1 /* Debug */ = {
