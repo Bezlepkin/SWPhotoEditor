@@ -679,7 +679,7 @@
 				F18E4B422CA5452300A73D61 /* ru */,
 			);
 			name = Localizable.strings;
-			path = PhotoEditor;
+			path = PhotoEditor/Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
