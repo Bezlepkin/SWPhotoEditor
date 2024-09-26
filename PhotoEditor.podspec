@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
     s.source           = { :git => 'https://github.com/Bezlepkin/SWPhotoEditor.git', :tag => s.version.to_s }
     s.platform         = :ios, '12.0'
     s.source_files     = 'PhotoEditor/**/*.{swift}'
-    s.resources        = 'PhotoEditor/Resources/**/*.{png,ttf}'
+    s.resources        = 'PhotoEditor/Resources/**/*.{lproj,png,ttf}'
     s.swift_version    = '5.0'
   end
