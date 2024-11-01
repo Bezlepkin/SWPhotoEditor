@@ -63,10 +63,12 @@ public final class TypingCanvasView: UIView {
         return self.toImage()
     }
     
-    private func clearPreviesTypingResult() {
-        if (currentTextView != nil) {
+    private func clearPreviesTypingResult(isSaveInstance: Bool = false) {
+        if currentTextView != nil {
             currentX = nil
             currentY = nil
+            
+            if isSaveInstance { return }
             currentTextView?.removeFromSuperview()
             currentTextView = nil
         }
@@ -140,7 +142,9 @@ extension TypingCanvasView {
     }
     
     @objc private func moveTextViewGesture(gestureRecognizer: UIPanGestureRecognizer) {
-        if isEditingMode { return }
+        let isEmpty: Bool = currentTextView?.isEmpty() ?? false
+        
+        if isEditingMode || isEmpty { return }
         guard let currentTextView else { return }
         
         if gestureRecognizer.state == .began {
@@ -170,7 +174,13 @@ extension TypingCanvasView: TextViewDelegate {
     // The method implements the logic at the moment we finish typing to UITextView
     public func textViewDidEndEditing() {
         isEditingMode = false
-        returnTextViewAnPreviousPosition()
+        let isEmpty: Bool = currentTextView?.isEmpty() ?? false
+        
+        if isEmpty {
+            clearPreviesTypingResult(isSaveInstance: true)
+        } else {
+            returnTextViewAnPreviousPosition()
+        }
     }
     // The method implements the logic at the moment we start typing to UITextView
     public func textViewDidBeginEditing() {

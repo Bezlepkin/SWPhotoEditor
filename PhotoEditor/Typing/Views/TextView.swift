@@ -10,7 +10,7 @@ import Foundation
 public final class TextView: UIView {
     var textColor: UIColor?;
     weak var delegate: TextViewDelegate?
-
+    
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,29 +22,30 @@ public final class TextView: UIView {
         textView.autocorrectionType = .no
         textView.textContainerInset = .zero
         textView.isScrollEnabled = false
+        textView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         textView.delegate = self
         
         return textView
     }()
     
-    private var placeholderLabel: UILabel = {
+    lazy private var placeholderLabel: UILabel = {
+        let bundle = Bundle(for: type(of: self))
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Введите текст"
+        label.text = NSLocalizedString("ENTER_TEXT", tableName: nil, bundle: bundle, value: "", comment: "")
         label.textColor = UIColor.black.withAlphaComponent(0.7)
         label.font = UIFont(name: "Helvetica", size: 18)
         
         return label
     }()
     
-    
     public override init(frame: CGRect) {
         textColor = .black
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        // layoutPlaceholderLabel()
         setupUI()
         layoutTextView()
+        layoutPlaceholderLabel()
         textView.becomeFirstResponder()
     }
     
@@ -56,13 +57,17 @@ public final class TextView: UIView {
         textView.textColor = color
     }
     
+    func isEmpty() -> Bool {
+        return textView.text.isEmpty
+    }
+    
     private func placeholderVisibility(visibility: Bool) {
         placeholderLabel.isHidden = !visibility
     }
     
     private func setupUI() {
         backgroundColor = .none
-        layer.cornerRadius = 4
+        textView.layer.cornerRadius = 4
     }
     
     private func layoutTextView() {
@@ -70,9 +75,10 @@ public final class TextView: UIView {
         
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4)
+            textView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 4),
+            textView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -4),
+            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+            textView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     
@@ -95,11 +101,11 @@ extension TextView: UITextViewDelegate {
         let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
         
         if (updatedText.count > 0) {
-            // placeholderVisibility(visibility: false)
-            backgroundColor = .white
+            placeholderVisibility(visibility: false)
+            textView.backgroundColor = .white
         } else {
-            // placeholderVisibility(visibility: true)
-            backgroundColor = .none
+            placeholderVisibility(visibility: true)
+            textView.backgroundColor = .none
         }
         
         return true

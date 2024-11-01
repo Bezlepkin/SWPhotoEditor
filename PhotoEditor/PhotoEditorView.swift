@@ -186,7 +186,7 @@ public final class PhotoEditorView: UIView {
     
     lazy var continueButton: HiglihtedButton = {
         let bundle = Bundle(for: type(of: self))
-        let buttonTitle: String = NSLocalizedString("save", tableName: nil, bundle: bundle, value: "", comment: "")
+        let buttonTitle: String = NSLocalizedString("SAVE", tableName: nil, bundle: bundle, value: "", comment: "")
         
         let button = HiglihtedButton()
         button.translatesAutoresizingMaskIntoConstraints = false
