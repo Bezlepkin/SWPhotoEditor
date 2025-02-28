@@ -23,6 +23,11 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         setupColor()
     }
     
+    func setInitialColor(collectionView: UICollectionView) {
+        activeIndexPath = IndexPath(row: 2, section: 0)
+        collectionView.reloadData()
+    }
+    
     func resetColor(collectionView: UICollectionView) {
         setupColor()
         collectionView.reloadData()
