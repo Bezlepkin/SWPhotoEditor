@@ -57,7 +57,7 @@ extension PhotoEditorViewController {
         
         hideToolbar(hide: true)
         contentView.drawingView.color = colors[2]
-        colorsCollectionViewDelegate.setInitialColor(collectionView: contentView.colorsCollectionView);
+        colorsCollectionViewDelegate.setInitialColor(collectionView: contentView.colorsCollectionView)
     }
     
     @objc func textButtonTapped() {
